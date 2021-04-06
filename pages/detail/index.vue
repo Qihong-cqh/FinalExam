@@ -250,7 +250,8 @@
 						id:"wWmoO8kv4E"
 					},
 				]
-			},{	name:"开发榜单",
+			},
+			{	name:"开发榜单",
 				data:[
 					{
 						name:"GitHub ‧ Trending Weekly",
@@ -304,11 +305,6 @@
 			
 		},
 		methods: {
-			// handleClick(){
-			// 	uni.navigateTo({
-			// 		url:"../webViewPage/index?url=https://www.baidu.com"
-			// 	})
-			// },
 			handleClick(item){
 				uni.navigateTo({
 					url:`../hotList/hotList?id=${item.id}`
@@ -333,7 +329,6 @@
 					header:{
 						"token":"pKVLc1czEvYrCAjL",
 						"Content-Type":"application/x-www-form-urlencoded",
-						// "Access-Control-Allow-Origin":"http://localhost:8080"
 					},
 					
 					success(res){
