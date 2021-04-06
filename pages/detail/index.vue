@@ -1,6 +1,6 @@
 <template>
 	<uni-collapse accordion>
-		<uni-collapse-item v-for="(items,index) in arr" :title="items.name" open showAnimation>
+		<uni-collapse-item v-for="(items,index) in arr" :title="items.name"showAnimation>
 			<uni-list>
 				<uni-list-item v-for="(item,index) in items.data" :title="item.name" 
 					clickable

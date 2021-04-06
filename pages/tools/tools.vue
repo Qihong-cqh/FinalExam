@@ -3,14 +3,20 @@
 		
 	
 	<uni-collapse accordion>
-		<uni-collapse-item :title="items.name" v-for="(items,index) in arr" open showAnimation>
+		<uni-collapse-item :title="items.name" v-for="(items,index) in arr" showAnimation>
 			<view class="collapse-content">
-				<button type="default" v-for="(item,index) in items.data" 
-				:key="index" @click="handleClick(item)" class="content-button">
+				<button 
+				type="default" 
+				v-for="(item,index) in items.data" 
+				:key="index" 
+				size="mini"
+				@click="handleClick(item)" 
+				class="content-button">
 				{{item.name}}</button>
 			</view>
 		</uni-collapse-item>
 	</uni-collapse>
+	
 	<uni-popup ref="popup" type="center">
 		<view class="mypopup">
 			{{content}}
