@@ -1,14 +1,27 @@
 <template>
-	<uni-collapse accordion>
-		<uni-collapse-item v-for="(items,index) in arr" :title="items.name" showAnimation>
-			<uni-list>
-				<uni-list-item v-for="(item,index) in items.data" :title="item.name" 
-					clickable
-					@click="handleClick(item)"
-				></uni-list-item>
-			</uni-list>
-		</uni-collapse-item>
-	</uni-collapse>
+	<view class="topPage">
+		
+		<checkbox-group @change="handleChange">
+		<uni-collapse accordion>
+			<uni-collapse-item v-for="(items,index) in list" :title="items.name" :open="index===0?true:false" showAnimation>
+				
+					
+						<label class="uni-list-cell uni-list-cell-pd" v-for="item in items.data" :key="item.id">
+							<view class="checkBoxGroup">
+								<view>
+									<checkbox :value="JSON.stringify({name:item.name,id:item.id})" :checked="item.checked" />
+								</view>
+								<view>{{item.name}}</view>
+							</view>
+						</label>
+					
+				
+			</uni-collapse-item>
+		</uni-collapse>
+		</checkbox-group>
+		<button type="primary" plain @click="handleSave">确定添加</button>
+		
+	</view>
 </template>
 
 <script>
@@ -291,79 +304,99 @@
 				]
 			},
 		]
+	
 	export default {
-		data() {
+		data(){
 			return {
-				arr:res,
-				title: 'Hello',
-				Img:'/static/logo.png',
-				target:true,
-				UrlSrc:'www.google.com',
+				list:res,
+				currentIndex:"",
+				Arr:'',
+				// IdArr:[],
 			}
 		},
-		onLoad() {
+		methods:{
+			handleChange(detail){
+				this.Arr=detail.detail
+				// console.log(detail.detail)
+				console.log(this.Arr)	
+			},
+			handleSave(){
+				console.log('handle save')
+				// let res=[]
+				// for(let i=0;i<this.list.length;i++){
+				// 	let temp=this.list[i].data
+				// 	for(let j=0;j<temp.length;j++){
+				// 		if(temp[j].checked===true){
+				// 			res.push(temp[j])
+				// 		}
+				// 	}
+				// }
+				console.log(this.Arr)
+			},
+		},
+		onLoad(options) {
+			let arr=[]
+			// console.log(options.data)
+			let res=JSON.parse(options.data)
+			let set=new Set()
+			for(let i=0;i<res.length;i++){
+				arr.push(JSON.stringify({name:res[i].name,id:res[i].id}))
+				set.add(res[i].id)
+			}
+			for(let i=0;i<this.list.length;i++){
+				let temp=this.list[i].data
+				for(let j=0;j<temp.length;j++){
+					if(set.has(temp[j].id)){
+						temp[j].checked=true
+					}
+				}
+			}
+			this.Arr=arr
+		// 	uni.$on("Edit",(res)=>{
+		// 		console.log(res)
+		// 		let set=new Set()
+		// 		for(let i=0;i<res.length;i++){
+		// 			arr.push(JSON.stringify({name:res[i].name,id:res[i].id}))
+		// 			set.add(res[i].id)
+		// 		}
+				
+				
+		// 		for(let i=0;i<this.list.length;i++){
+		// 			let temp=this.list[i].data
+		// 			for(let j=0;j<temp.length;j++){
+		// 				if(set.has(temp[j].id)){
+		// 					temp[j].checked=true
+		// 				}
+		// 			}
+		// 		}
+		// 	})
 			
-		},
-		methods: {
-			handleClick(item){
-				uni.navigateTo({
-					url:`../hotList/hotList?id=${item.id}`
-				})
-			},
-			clickOne(){
-				uni.request({
-					url:"https://v2.alapi.cn/api/new/wbtop",
-					header:{
-						"token":"pKVLc1czEvYrCAjL",
-						"Content-Type":"application/x-www-form-urlencoded"
-					},
-					success(res){
-						console.log(res)
-					}
-				})
-			},
-			clickTwo(){
-				uni.request({
-					url:"https://v2.alapi.cn/api/acg",
-					method:"POST",
-					header:{
-						"token":"pKVLc1czEvYrCAjL",
-						"Content-Type":"application/x-www-form-urlencoded",
-					},
-					
-					success(res){
-						console.log(res)
-					}
-				})
-			}
+		// this.Arr=arr
+		// console.log(this.Arr)
 		}
 	}
 </script>
 
-<style>
-	/* .content {
+<style lang="scss" scoped>
+	.topPage{
+		min-height:85vh;
 		display: flex;
 		flex-direction: column;
-		align-items: center;
-		justify-content: center;
+		justify-content: space-between;
 	}
-
-	.logo {
-		height: 200rpx;
-		width: 200rpx;
-		margin-top: 200rpx;
-		margin-left: auto;
-		margin-right: auto;
-		margin-bottom: 50rpx;
-	}
-
-	.text-area {
+	.collapse-bottom{
 		display: flex;
-		justify-content: center;
+		justify-content: space-between;
+		.button-box{
+			display: flex;
+			margin-right:20rpx;
+			uni-button{
+				margin:10rpx 10rpx;
+			}
+		}
 	}
-
-	.title {
-		font-size: 36rpx;
-		color: #8f8f94;
-	} */
+	.checkBoxGroup{
+		display: flex;
+		
+	}
 </style>

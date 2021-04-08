@@ -128,7 +128,7 @@ export default {
 	.mypopup{
 		height:50vh;
 		width:70vw;
-		background:red;
+		background:#ffffcc;
 		border-radius: 10rpx;
 		overflow: auto;
 	}

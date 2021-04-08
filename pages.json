@@ -12,7 +12,12 @@
 			"style": {
 				"navigationBarTitleText": "主页",
 				"navigationStyle": "default"
-
+			}
+		},{
+			"path": "pages/homepage/editPage",
+			"style": {
+				"navigationBarTitleText": "编辑页",
+				"navigationStyle": "default"
 			}
 		},
 		{

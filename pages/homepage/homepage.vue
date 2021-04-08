@@ -1,7 +1,8 @@
 <template>
 	<view class="homepage">
 		<uni-collapse accordion>
-			<uni-collapse-item v-for="(items,index) in list" :title="items.name" open showAnimation>
+			<uni-collapse-item v-for="(items,index) in list" :title="items.name" showAnimation>
+				
 				<uni-list>
 					<uni-list-item v-for="(item,index) in items.data" :title="item.name" 
 						clickable
@@ -9,11 +10,12 @@
 					>
 					</uni-list-item>
 				</uni-list>
+				
 				<view class="collapse-bottom">
 					<view></view>
 					<view class="button-box">
 						<button type="info" plain @click="handleRename(index)" size="mini">重命名</button>
-						<button type="primary" plain @click="handleClick(items,index)" size="mini">编辑</button>
+						<button type="primary" plain @click="handleEdit(items,index)" size="mini">编辑</button>
 						<button type="warn" plain @click="handleDelete(items,index)" size="mini">删除</button>
 					</view>
 				</view>
@@ -95,10 +97,10 @@
 						id:"6ARe1n6o7n"
 					},{
 						name:"新京报 热榜",
-						id:"6ARe1n6o7n"
+						id:"YqoXQ8XvOD"
 					},{
 						name:"中国国家地理网 热榜",
-						id:"YqoXQ8XvOD"
+						id:"YqoXQ8XvOD123"
 					},
 					]
 			},
@@ -352,6 +354,14 @@
 		methods:{
 			handleClick(item,index){
 				console.log(item,index)
+			},
+			handleEdit(item,index){
+				// console.log(item,index)
+				let temp=JSON.stringify(item.data)
+				uni.navigateTo({
+					url:`editPage?data=${temp}`
+				})
+				// uni.$emit("Edit",item.data)
 			},
 			handleDelete(item,index){
 				this.currentIndex=index
